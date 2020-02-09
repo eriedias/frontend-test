@@ -13,6 +13,7 @@
         <aside class="main-filter">
             <div class="container flex-middle">
                 <desktop-filter v-if="windowSize.width > 767"></desktop-filter>
+                <mobile-filter v-else></mobile-filter>
             </div>
         </aside>
 
