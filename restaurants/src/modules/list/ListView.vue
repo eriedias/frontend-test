@@ -9,6 +9,13 @@
             </div>
         </header>
 
+        <!-- Main Filter -->
+        <aside class="main-filter">
+            <div class="container flex-middle">
+                <desktop-filter v-if="windowSize.width > 767"></desktop-filter>
+            </div>
+        </aside>
+
     </div>
 </template>
 
