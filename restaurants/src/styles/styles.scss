@@ -7,3 +7,40 @@
     margin: 0;
     padding: 0;
 }
+body {
+    font-family: HelveticaNeueLight;
+    letter-spacing: 1px;
+    color: #666666;
+}
+a:focus, button:focus, a:active, button:active, input[type="submit"]:active, input:focus {
+    outline: none !important;
+}
+.container {
+    max-width: 1250px;
+    padding: 0 30px;
+    margin: 0 auto;
+}
+.flex-middle {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+// Main Header
+header#main-header {
+    h1 {
+        font-size: 52px;
+        font-weight: lighter;
+        color: #343434;
+        margin: 25px 0;
+    }
+    p {
+        font-size: 22px;
+        max-width: 750px;
+        line-height: 33px;
+        margin-bottom: 35px;
+    }
+}
+
+// Responsiveness overwriting
+@import 'responsive';
