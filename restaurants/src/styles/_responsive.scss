@@ -5,7 +5,13 @@
 
 /* lg */
 @media only screen and (max-width:1199px)  {
-    
+    .restaurants-list {
+        .list {
+            .item {
+                width: 50%;
+            }
+        }
+    }
 }
 
 /* md */
@@ -17,6 +23,16 @@
 @media only screen and (max-width:767px)  {
     .main-filter {
         border-bottom: none;
+    }
+    .list-title {
+        margin: 20px 0 30px !important;
+    }
+    .restaurants-list {
+        .list {
+            .item {
+                width: 100%;
+            }
+        }
     }
 }
 

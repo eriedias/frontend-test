@@ -158,5 +158,89 @@ header#main-header {
     height: 80px;
 }
 
+// Restaurants List
+.restaurants-list {
+    .list-title {
+        margin: 60px 0 30px;
+        font-size: 32px;
+        font-weight: normal;
+        color: #343434;
+    }
+    .list {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        .item {
+            padding-right: 15px;
+            padding-left: 15px;
+            width: 25%;
+            margin: 10px 0 60px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            figure {
+                height: 230px;
+                overflow: hidden;
+                margin-bottom: 20px;
+                img {
+                    height: 100%;
+                    width: 100%;
+                    transition: .4s;
+                    object-fit: cover;
+                }
+            }
+            .description {
+                .item-title {
+                    color: #343434;
+                    font-weight: normal;
+                    font-size: 20px;
+                    line-height: 26px;
+                    margin-bottom: 10px;
+                }
+                .rating {
+                    margin-bottom: 12px;
+                    .star {
+                        font-size: 19px;
+                        color: $blue;
+                        margin-right: 2px;
+                    }
+                }
+                .end-bar {
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+                    .status {
+                        .icon {
+                            font-size: 9px;
+                            margin-right: 5px;
+                        }
+                        .icon.open {
+                            color: $green;
+                        }
+                        .icon.close {
+                            color: $red;
+                        }
+                    }
+                }
+            }
+            .learn-more-button {
+                width: 100%;
+                margin-top: auto;
+            }
+        }
+        .item:hover {
+            figure {
+                img {
+                    transform: scale(1.2);
+                }
+            }
+        }
+    }
+}
+
 // Responsiveness overwriting
 @import 'responsive';
