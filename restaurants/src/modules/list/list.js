@@ -1,6 +1,9 @@
 import DesktopFilter from '../../components/DesktopFilter.vue'
 import MobileFilter from '../../components/MobileFilter.vue'
 import windowSize from '../../mixins/windowSize'
+//import axios from 'axios'
+
+import { mapActions } from 'vuex'
 
 export default {
     components: { 
@@ -8,9 +11,31 @@ export default {
         'mobile-filter': MobileFilter,
     },
     mixins: [windowSize],
-    data() {
-        return {
-            
+    mounted() {
+        this.to_list()
+        //console.log(this.$store.state.listStore.list)
+
+        this.$getLocation()
+            .then(coordinates => {
+                this.$store.state.coordinates.lat = coordinates.lat
+                this.$store.state.coordinates.lng = coordinates.lng
+                this.to_list()
+            }
+        );
+    },
+    methods: {
+        ...mapActions('listStore', ['to_list']),
+    },
+    computed: {
+        list: {
+            get () {
+                return this.$store.state.listStore.list
+            }
+        },
+        loadedWithoutResults: {
+            get () {
+                return this.$store.state.listStore.loadedWithoutResults
+            }
         }
     },
 }

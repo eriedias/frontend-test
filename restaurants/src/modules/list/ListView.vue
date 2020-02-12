@@ -17,19 +17,24 @@
             </div>
         </aside>
         
+        
         <!-- Restaurants List -->
         <section class="restaurants-list">
 
-            <div class="container">
+            <div class="container" v-if="loadedWithoutResults">
+                <h2 class="list-title">No restaurants found near you.</h2>
+            </div>
+
+            <div class="container" v-else>
                 <h2 class="list-title">All Restaurants</h2>
                 <ul class="list">
 
-                    <li class="item">
+                    <li class="item" v-for="item in list" v-bind:key="item.id">
                         <figure>
-                            <img :src="require('../../assets/images/sample-restaurant-1.jpg')">
+                            <img :src="item.image_url">
                         </figure>
                         <div class="description">
-                            <h3 class="item-title">Very Long Name Restaurants Number 1 In List</h3>
+                            <h3 class="item-title">{{ item.name }}</h3>
                             <div class="rating">
                                 <span class="icon-star star"></span>
                                 <span class="icon-star star"></span>
@@ -39,153 +44,16 @@
                             </div>
                             <div class="end-bar">
                                 <div class="food-and-price">
-                                    <span class="food-type">Thai</span>
+                                    <span class="food-type">
+                                        <span v-for="(categ, index) of item.categories" v-bind:key="index">{{ categ.title }}<span v-if="index != Object.keys(item.categories).length - 1">, </span></span>
+                                    </span>
                                     •
-                                    <span class="price">$120</span>
+                                    <span class="price">{{ item.price }}</span>
                                 </div>
                                 <div class="status">
-                                    <span class="icon-circle icon open"></span>
-                                    <span class="text">Open Now</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="learn-more-button">Learn More</button>
-                    </li>
-
-                    <li class="item">
-                        <figure>
-                            <img :src="require('../../assets/images/sample-restaurant-1.jpg')">
-                        </figure>
-                        <div class="description">
-                            <h3 class="item-title">Restaurant 2</h3>
-                            <div class="rating">
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                            </div>
-                            <div class="end-bar">
-                                <div class="food-and-price">
-                                    <span class="food-type">Seafood</span>
-                                    •
-                                    <span class="price">$220</span>
-                                </div>
-                                <div class="status">
-                                    <span class="icon-circle icon close"></span>
-                                    <span class="text">Close</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="learn-more-button">Learn More</button>
-                    </li>
-
-                    <li class="item">
-                        <figure>
-                            <img :src="require('../../assets/images/sample-restaurant-1.jpg')">
-                        </figure>
-                        <div class="description">
-                            <h3 class="item-title">Restaurant 3</h3>
-                            <div class="rating">
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                            </div>
-                            <div class="end-bar">
-                                <div class="food-and-price">
-                                    <span class="food-type">Thai</span>
-                                    •
-                                    <span class="price">$120</span>
-                                </div>
-                                <div class="status">
-                                    <span class="icon-circle icon open"></span>
-                                    <span class="text">Open Now</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="learn-more-button">Learn More</button>
-                    </li>
-
-                    <li class="item">
-                        <figure>
-                            <img :src="require('../../assets/images/sample-restaurant-1.jpg')">
-                        </figure>
-                        <div class="description">
-                            <h3 class="item-title">Restaurant 3</h3>
-                            <div class="rating">
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                            </div>
-                            <div class="end-bar">
-                                <div class="food-and-price">
-                                    <span class="food-type">Thai</span>
-                                    •
-                                    <span class="price">$120</span>
-                                </div>
-                                <div class="status">
-                                    <span class="icon-circle icon open"></span>
-                                    <span class="text">Open Now</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="learn-more-button">Learn More</button>
-                    </li>
-
-                    <li class="item">
-                        <figure>
-                            <img :src="require('../../assets/images/sample-restaurant-1.jpg')">
-                        </figure>
-                        <div class="description">
-                            <h3 class="item-title">Restaurant 3</h3>
-                            <div class="rating">
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                            </div>
-                            <div class="end-bar">
-                                <div class="food-and-price">
-                                    <span class="food-type">Thai</span>
-                                    •
-                                    <span class="price">$120</span>
-                                </div>
-                                <div class="status">
-                                    <span class="icon-circle icon open"></span>
-                                    <span class="text">Open Now</span>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="learn-more-button">Learn More</button>
-                    </li>
-
-                    <li class="item">
-                        <figure>
-                            <img :src="require('../../assets/images/sample-restaurant-1.jpg')">
-                        </figure>
-                        <div class="description">
-                            <h3 class="item-title">Restaurant 3</h3>
-                            <div class="rating">
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                            </div>
-                            <div class="end-bar">
-                                <div class="food-and-price">
-                                    <span class="food-type">Thai</span>
-                                    •
-                                    <span class="price">$120</span>
-                                </div>
-                                <div class="status">
-                                    <span class="icon-circle icon open"></span>
-                                    <span class="text">Open Now</span>
+                                    <span class="icon-circle icon open" :class="[item.is_closed ? 'open' : 'close']"></span>
+                                    <span class="text" v-if="!item.is_closed">Close</span>
+                                    <span class="text" v-else>Open Now</span>
                                 </div>
                             </div>
                         </div>
