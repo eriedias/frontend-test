@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import listStore from '../modules/list/listStore'
+import filterStore from './filterStore'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
         }
     },
     modules: {
-        listStore
+        listStore,
+        filterStore
     }
 })

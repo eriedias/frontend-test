@@ -19,3 +19,4 @@ export const axiosRequest = axios.create({
 Vue.use(VueAxios, axiosRequest)
 
 export const BUSINESS_SEARCH = 'businesses/search'
+export const CATEGORIES = 'categories'

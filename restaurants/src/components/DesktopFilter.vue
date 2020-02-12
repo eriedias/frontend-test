@@ -11,8 +11,8 @@
                 </label>
             </div>
         </div>
-        <dropdown-select :name="this.selectPriceName" :options="this.selectPriceOptions" class="dropdown-select" @changeName="selectPriceName = $event"></dropdown-select>
-        <dropdown-select :name="this.selectCategoriesName" :options="this.selectCategoriesOptions" class="dropdown-select" @changeName="selectCategoriesName = $event"></dropdown-select>
+        <dropdown-select :name="this.selectPriceName" :options="this.$store.state.filterStore.prices" class="dropdown-select" @changeName="selectPrice($event)"></dropdown-select>
+        <dropdown-select :name="this.selectCategoriesName" :options="this.$store.state.filterStore.categories" class="dropdown-select" @changeName="selectCategoriesName = $event"></dropdown-select>
         <button class="outline-button x-small-button disabled clear-button">Clear all</button>
 
     </div>
@@ -20,30 +20,28 @@
 
 <script>
 import DropdownSelect from './DropdownSelect.vue'
+
+import { mapActions } from 'vuex'
+
 export default {
     components: { 'dropdown-select': DropdownSelect },
     data() {
         return {
             selectPriceName: 'Price',
-            selectPriceOptions: [
-                {value: 'All', status: false}, 
-                {value: '$', status: false},
-                {value: '$$', status: false},
-                {value: '$$$', status: false},
-                {value: '$$$$', status: false},
-            ],
             selectCategoriesName: 'Categories',
-            selectCategoriesOptions: [
-                {value: 'All', status: false}, 
-                {value: 'Italian', status: false},
-                {value: 'Seafood', status: false},
-                {value: 'Steakhouses', status: false},
-                {value: 'Japaneses', status: false},
-                {value: 'American', status: false},
-                {value: 'Mexican', status: false},
-                {value: 'Thai', status: false},
-            ]
         }
+    },
+    mounted() {
+        
+    },
+    methods: {
+        ...mapActions('filterStore', ['setPricesStore']),
+        ...mapActions('listStore', ['to_list']),
+
+        selectPrice(price){
+            this.selectPriceName = price.title
+            this.to_list(price.value)
+        },
     },
 }
 </script>

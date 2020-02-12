@@ -1,5 +1,4 @@
 import { axiosRequest, BUSINESS_SEARCH } from '../../utils/Requests'
-//import axios from 'axios'
 
 export default {
     namespaced: true,
@@ -10,24 +9,24 @@ export default {
     mutations: {
         CHANGE_LIST(state, payload) {
             state.list = payload.businesses
-            // console.log(state.list)
         },
         LOADED_WITHOUT_RESULTS(state, payload) {
             state.loadedWithoutResults = payload
         }
     },
     actions: {
-        to_list({ commit, state, rootState }, /*list*/) {
+        to_list({ commit, state, rootState }, price) {
             return new Promise ((resolve, reject) => {
                 axiosRequest.get(BUSINESS_SEARCH,
                 {
                     params: {
                         latitude: rootState.coordinates.lat,
-                        longitude: rootState.coordinates.lng
+                        longitude: rootState.coordinates.lng,
+                        radius: 40000,
+                        price: price
                     }
                 }
                 ).then(response => {
-                    // eslint-disable-next-line no-console
                     if (response.data.status === Response.SUCESSO) {
                         commit('CHANGE_LIST', response.data)
                         state.list.length == 0 ? commit('LOADED_WITHOUT_RESULTS', true) : commit('LOADED_WITHOUT_RESULTS', false)

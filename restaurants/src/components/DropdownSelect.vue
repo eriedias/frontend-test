@@ -4,7 +4,7 @@
         <div class="options" v-if="show">
             <div v-for="(option, index) in options" class="item" :key="option.value" @click="updateOptions(index)">
                 <span class="check" :class="{on : option.status}"></span>
-                <span class="text">{{ option.value }}</span>
+                <span class="text">{{ option.title }}</span>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@ export default {
                 option.status = false
             })
             this.options[index].status = !this.options[index].status
-            this.$emit('changeName', this.options[index].value)
+            this.$emit('changeName', this.options[index])
         }
     },
     created: function() {

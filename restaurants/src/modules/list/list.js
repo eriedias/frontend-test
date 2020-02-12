@@ -12,7 +12,8 @@ export default {
     },
     mixins: [windowSize],
     mounted() {
-        this.to_list()
+        // Listing with all prices
+        this.to_list('1, 2, 3, 4')
         //console.log(this.$store.state.listStore.list)
 
         this.$getLocation()
@@ -21,7 +22,10 @@ export default {
                 this.$store.state.coordinates.lng = coordinates.lng
                 this.to_list()
             }
-        );
+        ).catch((error) => {
+            // eslint-disable-next-line no-console
+            console.log(JSON.stringify(error))
+        })
     },
     methods: {
         ...mapActions('listStore', ['to_list']),
