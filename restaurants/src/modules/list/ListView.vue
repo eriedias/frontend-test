@@ -51,8 +51,8 @@
                                     <span class="price">{{ item.price }}</span>
                                 </div>
                                 <div class="status">
-                                    <span class="icon-circle icon open" :class="[item.is_closed ? 'open' : 'close']"></span>
-                                    <span class="text" v-if="!item.is_closed">Close</span>
+                                    <span class="icon-circle icon open" :class="[item.is_closed ? 'close' : 'open']"></span>
+                                    <span class="text" v-if="item.is_closed">Close</span>
                                     <span class="text" v-else>Open Now</span>
                                 </div>
                             </div>

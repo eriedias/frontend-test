@@ -213,7 +213,11 @@ header#main-header {
                     display: flex;
                     justify-content: space-between;
                     margin-bottom: 20px;
+                    .food-and-price {
+                        margin-right: 20px;
+                    }
                     .status {
+                        min-width: 90px;
                         .icon {
                             font-size: 9px;
                             margin-right: 5px;
