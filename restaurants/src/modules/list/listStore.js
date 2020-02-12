@@ -24,7 +24,8 @@ export default {
                         longitude: rootState.coordinates.lng,
                         radius: 40000,
                         price: filter.price.value,
-                        categories: filter.category.value
+                        categories: filter.category.value,
+                        open_now: filter.onlyOpenNow
                     }
                 }
                 ).then(response => {

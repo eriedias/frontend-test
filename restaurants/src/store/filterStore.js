@@ -20,8 +20,8 @@ export default {
         ],
         filter: {
             onlyOpenNow: false,
-            price: {value: '1, 2, 3, 4', title: 'Pricesss'},
-            category: {value: '', title: 'Categoriesss'}
+            price: {value: '1, 2, 3, 4', title: 'Prices'},
+            category: {value: '', title: 'Categories'}
         }
     },
     mutations: {
@@ -36,6 +36,9 @@ export default {
         },
     },
     actions: {
+        updateFilterOnlyOpenNowState({ commit }, value){
+            commit('CHANGE_FILTER_ONLY_OPEN_NOW', value)
+        },
         updateFilterPriceState({ commit }, price){
             commit('CHANGE_FILTER_PRICE', price)
         },

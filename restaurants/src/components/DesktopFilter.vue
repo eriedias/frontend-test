@@ -5,7 +5,7 @@
         <div class="form-item">
             <div class="custom-checkbox">
                 <label>
-                    <input type="checkbox">
+                    <input type="checkbox" @change="changeOnlyOpenNow($event.target.checked)">
                     <span class="checkmark"></span>
                     <span class="radio-text">Open Now</span>
                 </label>
@@ -34,9 +34,13 @@ export default {
         
     },
     methods: {
-        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState']),
+        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState']),
         ...mapActions('listStore', ['to_list']),
 
+        changeOnlyOpenNow(value){
+            this.updateFilterOnlyOpenNowState(value)
+            this.to_list(this.filterStore.filter)
+        },
         selectPrice(price){
             this.updateFilterPriceState(price)
             this.to_list(this.filterStore.filter)
