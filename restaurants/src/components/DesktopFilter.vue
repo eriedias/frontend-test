@@ -11,8 +11,8 @@
                 </label>
             </div>
         </div>
-        <dropdown-select :name="this.selectPriceName" :options="this.$store.state.filterStore.prices" class="dropdown-select" @changeName="selectPrice($event)"></dropdown-select>
-        <dropdown-select :name="this.selectCategoriesName" :options="this.$store.state.filterStore.categories" class="dropdown-select" @changeName="selectCategoriesName = $event"></dropdown-select>
+        <dropdown-select :name="this.filterStore.filter.price.title" :options="this.filterStore.prices" class="dropdown-select" @changeName="selectPrice($event)"></dropdown-select>
+        <dropdown-select :name="this.filterStore.filter.category.title" :options="this.filterStore.categories" class="dropdown-select" @changeName="selectCategory($event)"></dropdown-select>
         <button class="outline-button x-small-button disabled clear-button">Clear all</button>
 
     </div>
@@ -27,20 +27,23 @@ export default {
     components: { 'dropdown-select': DropdownSelect },
     data() {
         return {
-            selectPriceName: 'Price',
-            selectCategoriesName: 'Categories',
+            filterStore: this.$store.state.filterStore
         }
     },
     mounted() {
         
     },
     methods: {
-        ...mapActions('filterStore', ['setPricesStore']),
+        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState']),
         ...mapActions('listStore', ['to_list']),
 
         selectPrice(price){
-            this.selectPriceName = price.title
-            this.to_list(price.value)
+            this.updateFilterPriceState(price)
+            this.to_list(this.filterStore.filter)
+        },
+        selectCategory(category){
+            this.updateFilterCategoryState(category)
+            this.to_list(this.filterStore.filter)
         },
     },
 }

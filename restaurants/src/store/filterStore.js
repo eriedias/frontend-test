@@ -1,5 +1,3 @@
-import { axiosRequest, CATEGORIES } from '../utils/Requests'
-
 export default {
     namespaced: true,
     state: {
@@ -22,18 +20,11 @@ export default {
         ],
         filter: {
             onlyOpenNow: false,
-            price: 'All',
-            category: 'All'
+            price: {value: '1, 2, 3, 4', title: 'Pricesss'},
+            category: {value: '', title: 'Categoriesss'}
         }
     },
     mutations: {
-        CHANGE_PRICES(state, payload) {
-            state.prices = payload
-            console.log(state.prices)
-        },
-        CHANGE_CATEGORIES(state, payload) {
-            state.categories = payload
-        },
         CHANGE_FILTER_ONLY_OPEN_NOW(state, payload) {
             state.filter.onlyOpenNow = payload
         },
@@ -45,38 +36,11 @@ export default {
         },
     },
     actions: {
-        /*
-        setPricesStore({ commit }, prices){
-            commit('CHANGE_PRICES', prices)
+        updateFilterPriceState({ commit }, price){
+            commit('CHANGE_FILTER_PRICE', price)
         },
-        */
-
-
-        // Will not be used
-        categorize(/*{ commit, state },*/) {
-            return new Promise ((resolve, reject) => {
-                axiosRequest.get(CATEGORIES,
-                {
-                    params: {
-                        locale: 'en_US'
-                    }
-                }
-                ).then(response => {
-                    if (response.data.status === Response.SUCESSO) {
-                        console.log('response.data:')
-                        console.log(response.data.categories[0])
-                        resolve()
-                    } else {
-                        reject()
-                    }
-                })
-                .catch((error) => {
-                    // eslint-disable-next-line no-console
-                    console.log(JSON.stringify(error))
-                })
-            })
+        updateFilterCategoryState({ commit }, category){
+            commit('CHANGE_FILTER_CATEGORY', category)
         },
-
-
     },
 }

@@ -12,10 +12,7 @@ export default {
     },
     mixins: [windowSize],
     mounted() {
-        // Listing with all prices
-        this.to_list('1, 2, 3, 4')
-        //console.log(this.$store.state.listStore.list)
-
+        this.to_list(this.$store.state.filterStore.filter)
         this.$getLocation()
             .then(coordinates => {
                 this.$store.state.coordinates.lat = coordinates.lat

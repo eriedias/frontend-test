@@ -15,7 +15,7 @@ export default {
         }
     },
     actions: {
-        to_list({ commit, state, rootState }, price) {
+        to_list({ commit, state, rootState }, filter) {
             return new Promise ((resolve, reject) => {
                 axiosRequest.get(BUSINESS_SEARCH,
                 {
@@ -23,7 +23,8 @@ export default {
                         latitude: rootState.coordinates.lat,
                         longitude: rootState.coordinates.lng,
                         radius: 40000,
-                        price: price
+                        price: filter.price.value,
+                        categories: filter.category.value
                     }
                 }
                 ).then(response => {
