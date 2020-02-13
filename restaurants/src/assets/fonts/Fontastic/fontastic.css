@@ -50,9 +50,6 @@
 .icon-angle-right:before {
   content: "\66";
 }
-.icon-star:before {
-  content: "\63";
-}
 .icon-circle:before {
   content: "\64";
 }
@@ -61,4 +58,13 @@
 }
 .icon-close:before {
   content: "\68";
+}
+.icon-full-star:before {
+  content: "\63";
+}
+.icon-half-star:before {
+  content: "\69";
+}
+.icon-empt-star:before {
+  content: "\6a";
 }

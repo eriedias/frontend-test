@@ -36,16 +36,18 @@
                         <div class="description">
                             <h3 class="item-title">{{ item.name }}</h3>
                             <div class="rating">
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
-                                <span class="icon-star star"></span>
+                                <span class="icon-full-star star" v-for="(n, index) in Math.floor(item.rating)" v-bind:key="index"></span>
+                                <span class="icon-half-star star" v-if="item.rating % 1 !== 0"></span>
                             </div>
                             <div class="end-bar">
                                 <div class="food-and-price">
                                     <span class="food-type">
+                                        <!-- All categories -->
+                                        <!--
                                         <span v-for="(categ, index) of item.categories" v-bind:key="index">{{ categ.title }}<span v-if="index != Object.keys(item.categories).length - 1">, </span></span>
+                                        -->
+                                        <!-- Just one category -->
+                                        <span>{{ item.categories[0].title }}</span>
                                     </span>
                                     •
                                     <span class="price">{{ item.price }}</span>
