@@ -39,7 +39,7 @@
                     <div class="field">
                         <div class="open-close-toggle">
                             <label>Open now</label>
-                            <mobile-toggle :active="this.restaurantOpen" @toggle="toggleRestaurantOpen($event)"></mobile-toggle>
+                            <mobile-toggle :active="this.filterStore.filter.onlyOpenNow" @toggle="changeOnlyOpenNow($event)"></mobile-toggle>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                 <div class="container">
                     <div class="field label-top">
                         <label>Price</label>
-                        <mobile-inline-select :options="this.priceOptions" @selected="setSelectedPrice($event)"></mobile-inline-select>
+                        <mobile-inline-select :options="this.filterStore.prices" @selected="changeSelectedString()" @update="updatePrice($event)"></mobile-inline-select>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <div class="container">
                     <div class="field label-top">
                         <label>Categories <span class="description">Select One</span></label>
-                        <mobile-select :options="this.selectCategoriesOptions" @selected="setSelectedCategory($event)"></mobile-select>
+                        <mobile-select :options="this.filterStore.categories" @selected="changeSelectedString()" @update="updateCategory($event)"></mobile-select>
                     </div>
                 </div>
             </div>
@@ -70,6 +70,9 @@
 import MobileToggle from './MobileToggle.vue'
 import MobileInlineSelect from './MobileInlineSelect.vue'
 import MobileSelect from './MobileSelect.vue'
+
+import { mapActions } from 'vuex'
+
 export default {
     components: { 
         'mobile-toggle': MobileToggle,
@@ -78,75 +81,66 @@ export default {
     },
     data() {
         return {
+            filterStore: this.$store.state.filterStore,
             modalOpen: false,
-            restaurantOpen: false,
             defaultSelecteds: {
-                price: 'All',
-                category: 'All',
+                price: 'Prices',
+                category: 'Categories',
                 open: false
-            },
-            selecteds: {
-                price: 'All',
-                category: 'All',
-                open: this.restaurantOpen
             },
             defaultSelectedString: 'All',
             selectedString: 'All',
-            priceOptions: [
-                {value: 'All', status: false}, 
-                {value: '$', status: false},
-                {value: '$$', status: false},
-                {value: '$$$', status: false},
-                {value: '$$$$', status: false},
-            ],
-            selectCategoriesOptions: [
-                {value: 'All', status: false}, 
-                {value: 'Italian', status: false},
-                {value: 'Seafood', status: false},
-                {value: 'Steakhouses', status: false},
-                {value: 'Japaneses', status: false},
-                {value: 'American', status: false},
-                {value: 'Mexican', status: false},
-                {value: 'Thai', status: false},
-            ]
         }
     },
     methods: {
+        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState']),
+        ...mapActions('listStore', ['to_list']),
         toggleModal() {
             this.modalOpen = !this.modalOpen
             this.modalOpen ? document.body.classList.add('modal-open') : document.body.classList.remove('modal-open')
         },
-        toggleRestaurantOpen(status){
-            this.restaurantOpen = status
-            this.selecteds.open = status
+
+        changeSelectedString(){
             if (!this.equalSelectedObjects()){
                 this.setSelectedString()
             }
         },
-        setSelectedPrice(price) {
-            this.selecteds.price = price
-            if (!this.equalSelectedObjects()){
-                this.setSelectedString()
-            }
+
+        changeOnlyOpenNow(value){
+            this.updateFilterOnlyOpenNowState(value)
+            this.to_list(this.filterStore.filter)
+
+            this.changeSelectedString()
         },
-        setSelectedCategory(category) {
-            this.selecteds.category = category
-            if (!this.equalSelectedObjects()){
-                this.setSelectedString()
-            }
+
+        updatePrice(price){
+            this.updateFilterPriceState(price)
+            this.to_list(this.filterStore.filter)
+
+            this.changeSelectedString()
         },
+
+        updateCategory(category){
+            this.updateFilterCategoryState(category)
+            this.to_list(this.filterStore.filter)
+
+            this.changeSelectedString()
+        },
+
         // Needs to be refactored
         setSelectedString(){
             let arraySelecteds = []
-            if (this.selecteds.price !== this.defaultSelecteds.price){
-                arraySelecteds.push(this.selecteds.price)
+
+            if (this.filterStore.filter.price.title !== this.defaultSelecteds.price && this.filterStore.filter.price.title !== 'All'){
+                arraySelecteds.push(this.filterStore.filter.price.title)
             }
-            if (this.selecteds.category !== this.defaultSelecteds.category){
-                arraySelecteds.push(this.selecteds.category)
+            if (this.filterStore.filter.category.title !== this.defaultSelecteds.category && this.filterStore.filter.category.title !== 'All'){
+                arraySelecteds.push(this.filterStore.filter.category.title)
             }
-            if (this.selecteds.open === true){
+            if (this.filterStore.filter.onlyOpenNow === true){
                 arraySelecteds.push(arraySelecteds.length > 0 ? 'open now' : 'Open now')
             }
+
             if (arraySelecteds.length > 1) {
                 this.selectedString = arraySelecteds.slice(0, -1).join(', ')+' and '+arraySelecteds.slice(-1)
             } else {
@@ -155,9 +149,11 @@ export default {
         },
         // Needs to be refactored
         equalSelectedObjects(){
-            if (this.selecteds.price === this.defaultSelecteds.price && 
-                this.selecteds.category === this.defaultSelecteds.category && 
-                this.selecteds.open === false){
+            if ((this.filterStore.filter.price.title === this.defaultSelecteds.price ||
+                this.filterStore.filter.price.title === 'All') &&
+                (this.filterStore.filter.category.title === this.defaultSelecteds.category ||
+                this.filterStore.filter.category.title === 'All') &&
+                this.filterStore.filter.onlyOpenNow === false){
                 this.selectedString = this.defaultSelectedString
                 return true
             } else {

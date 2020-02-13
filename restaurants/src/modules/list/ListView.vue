@@ -51,6 +51,8 @@
                                     <span class="price">{{ item.price }}</span>
                                 </div>
                                 <div class="status">
+                                    <!-- The Yelp API listing endpoint does not provide a parameter for open restaurants. -->
+                                    <!-- Using "is_closed" below, but I think this parameter is for restaurants that have finished their work. -->
                                     <span class="icon-circle icon open" :class="[item.is_closed ? 'close' : 'open']"></span>
                                     <span class="text" v-if="item.is_closed">Close</span>
                                     <span class="text" v-else>Open Now</span>

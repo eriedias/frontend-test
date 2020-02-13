@@ -1,10 +1,10 @@
 <template>
     <div class="select" ref="select">
-        <span class="label" @click="optionsCollapse()" :class="{ active : show }">{{ selectedObject.value }}</span>
+        <span class="label" @click="optionsCollapse()" :class="{ active : show }">{{ selectedObject.title }}</span>
         <div class="options" :class="{on : show}" ref="mobileSelectOptions">
-            <div v-for="(option, index) in options" class="item" :key="option.value" @click="updateOptions(index)">
+            <div v-for="(option, index) in options" class="item" :key="index" @click="updateOptions(index)">
                 <span class="check" :class="{on : option.status}"></span>
-                <span class="text">{{ option.value }}</span>
+                <span class="text">{{ option.title }}</span>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@ export default {
             })
             this.options[index].status = !this.options[index].status
             this.selectedObject = this.options[index]
-            this.$emit('selected', this.options[index].value)
+            this.$emit('update', this.options[index])
         },
         optionsCollapse: function(){
             this.show = !this.show
@@ -48,9 +48,9 @@ export default {
         if (trueOptions.length == 0){
             this.options[0].status = true
             this.selectedObject = this.options[0]
-            this.$emit('selected', this.options[0].value)
+            this.$emit('selected')
         } else {
-            this.$emit('selected', trueOptions[0].value)
+            this.$emit('selected')
             this.selectedObject = trueOptions[0]
             trueOptions.forEach((option, index) => {
                 if (index > 0){

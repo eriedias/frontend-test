@@ -1,6 +1,6 @@
 <template>
     <div class="inline-select">
-        <span class="item" v-for="(option, index) in options" :key="option.value" :class="{on : option.status}" @click="updateOptions(index)">{{ option.value }}</span>
+        <span class="item" v-for="(option, index) in options" :key="index" :class="{on : option.status}" @click="updateOptions(index)">{{ option.title }}</span>
     </div>
 </template>
 
@@ -15,16 +15,16 @@ export default {
                 option.status = false
             })
             this.options[index].status = !this.options[index].status
-            this.$emit('selected', this.options[index].value)
+            this.$emit('update', this.options[index])
         }
     },
     created: function() {
         let trueOptions = this.options.filter((option) => { return option.status == true })
         if (trueOptions.length == 0){
             this.options[0].status = true
-            this.$emit('selected', this.options[0].value)
+            this.$emit('selected')
         } else {
-            this.$emit('selected', trueOptions[0].value)
+            this.$emit('selected')
             trueOptions.forEach((option, index) => {
                 if (index > 0){
                     option.status = false

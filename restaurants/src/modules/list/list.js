@@ -17,7 +17,7 @@ export default {
             .then(coordinates => {
                 this.$store.state.coordinates.lat = coordinates.lat
                 this.$store.state.coordinates.lng = coordinates.lng
-                this.to_list()
+                this.to_list(this.$store.state.filterStore.filter)
             }
         ).catch((error) => {
             // eslint-disable-next-line no-console

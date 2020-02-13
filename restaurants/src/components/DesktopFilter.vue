@@ -5,7 +5,7 @@
         <div class="form-item">
             <div class="custom-checkbox">
                 <label>
-                    <input type="checkbox" @change="changeOnlyOpenNow($event.target.checked)">
+                    <input type="checkbox" :checked="this.filterStore.filter.onlyOpenNow" @change="changeOnlyOpenNow($event.target.checked)">
                     <span class="checkmark"></span>
                     <span class="radio-text">Open Now</span>
                 </label>
