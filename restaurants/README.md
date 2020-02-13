@@ -6,7 +6,11 @@ npm install
 ```
 
 ### Enviroment Settings
-Create a .env.local file on the app root and set yours Yelp API authentication variables VUE_APP_CLIENT_ID and VUE_APP_API_KEY.
+Create a .env.local file on the app root and set yours Yelp API authentication variable VUE_APP_API_KEY.
+Example:
+```
+VUE_APP_API_KEY=abc123
+```
 
 ### Compiles and hot-reloads for development
 ```
