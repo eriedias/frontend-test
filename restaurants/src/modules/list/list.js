@@ -2,15 +2,18 @@ import DesktopFilter from '../../components/DesktopFilter.vue'
 import MobileFilter from '../../components/MobileFilter.vue'
 import DetailsModal from '../../components/DetailsModal.vue'
 import windowSize from '../../mixins/windowSize'
-//import axios from 'axios'
 
 import { mapActions } from 'vuex'
+
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     components: { 
         'desktop-filter': DesktopFilter,
         'mobile-filter': MobileFilter,
         'details-modal': DetailsModal,
+        'loading': Loading
     },
     mixins: [windowSize],
     mounted() {
@@ -23,9 +26,18 @@ export default {
     },
     methods: {
         ...mapActions('listStore', ['to_list', 'to_detail']),
+
         showDetails(id){
-            this.to_detail(id)
-            this.showDetailsModal = !this.showDetailsModal
+            return new Promise (() => { 
+                this.to_detail(id)
+                .then(() => {
+                    this.showDetailsModal = !this.showDetailsModal
+                })
+                .catch((error) => {
+                // eslint-disable-next-line no-console
+                console.log(JSON.stringify(error))
+                })
+            })
         }
     },
     computed: {

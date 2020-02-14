@@ -36,9 +36,9 @@
                         <div class="description">
                             <h3 class="item-title">{{ item.name }}</h3>
                             <div class="rating">
-                                <span class="icon-full-star star" v-for="(n, index) in Math.floor(item.rating)" v-bind:key="index"></span>
+                                <span class="icon-full-star star" v-for="fullstar in Math.floor(item.rating)" v-bind:key="'fullstar-'+fullstar"></span>
                                 <span class="icon-half-star star" v-if="item.rating % 1 !== 0"></span>
-                                <span class="icon-empt-star star" v-for="(n, index) in Math.floor(5 - item.rating)" v-bind:key="index"></span>
+                                <span class="icon-empt-star star" v-for="emptstar in Math.floor(5 - item.rating)" v-bind:key="'emptstar-'+emptstar"></span>
                             </div>
                             <div class="end-bar">
                                 <div class="food-and-price">
@@ -62,7 +62,9 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="learn-more-button" @click="showDetails(item.id)">Learn More </button>
+                        <button class="learn-more-button" @click="showDetails(item.id)">
+                            Learn More
+                        </button>
                     </li>
 
                 </ul>
@@ -73,6 +75,11 @@
         <transition name="fade">
             <details-modal v-if="showDetailsModal" @close="showDetailsModal = false"></details-modal>
         </transition>
+
+        <div class="vld-parent">
+            <loading :active.sync="this.$store.state.isLoading" :color="'#004891'" :background-color="'#000'" :width="100" :height="100"></loading>
+        </div>
+
     </div>
 </template>
 

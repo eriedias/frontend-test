@@ -19,13 +19,12 @@ export default {
         },
     },
     actions: {
-        to_list({ commit, state, /*rootState*/ }, filter) {
+        to_list({ dispatch, commit, state, /*rootState*/ }, filter) {
             return new Promise ((resolve, reject) => {
+                dispatch('updateIsLoading', true, { root: true })
                 axiosRequest.get(BUSINESS_SEARCH,
                 {
                     params: {
-                        //latitude: rootState.coordinates.lat,
-                        //longitude: rootState.coordinates.lng,
                         location: 'Las Vegas',
                         radius: 40000,
                         price: filter.price.value,
@@ -34,12 +33,16 @@ export default {
                     }
                 }
                 ).then(response => {
-                    if (response.data.status === Response.SUCESSO) {
+                    if (response.data) {
                         commit('CHANGE_LIST', response.data)
                         state.list.length == 0 ? commit('LOADED_WITHOUT_RESULTS', true) : commit('LOADED_WITHOUT_RESULTS', false)
-                        resolve()
+                        resolve(
+                            dispatch('updateIsLoading', false, { root: true })
+                        )
                     } else {
-                        reject()
+                        reject(
+                            dispatch('updateIsLoading', false, { root: true })
+                        )
                     }
                 })
                 .catch((error) => {
@@ -49,19 +52,24 @@ export default {
             })
         },
 
-        to_detail({ commit }, id) {
+        to_detail({ dispatch, commit }, id) {
             return new Promise ((resolve, reject) => {
+                dispatch('updateIsLoading', true, { root: true })
                 axiosRequest.get('businesses/'+id,
                 {
                     params: {
                     }
                 }
                 ).then(response => {
-                    if (response.data.status === Response.SUCESSO) {
+                    if (response.data) {
                         commit('CHANGE_BUSINESS_MODAL', response.data)
-                        resolve()
+                        resolve(
+                            dispatch('updateIsLoading', false, { root: true })
+                        )
                     } else {
-                        reject()
+                        reject(
+                            dispatch('updateIsLoading', false, { root: true })
+                        )
                     }
                 })
                 .catch((error) => {

@@ -8,13 +8,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        coordinates: {
-            lat: '37.786882',
-            lng: '-122.399972'
-        }
+        isLoading: false,
     },
     modules: {
         listStore,
         filterStore
+    },
+    mutations: {
+        CHANGE_IS_LOADING(state, value) {
+            state.isLoading = value
+        },
+    },
+    actions: {
+        updateIsLoading({commit}, value){
+            commit('CHANGE_IS_LOADING', value)
+        },
     }
 })
