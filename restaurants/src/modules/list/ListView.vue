@@ -62,7 +62,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- @close="showDetailsModal = false" não está funcionando -->
                         <button class="learn-more-button" @click="showDetails(item.id)">Learn More </button>
                     </li>
 
@@ -71,8 +70,9 @@
 
         </section>
 
-        <details-modal v-if="showDetailsModal" @close="showDetailsModal = false"></details-modal>
-
+        <transition name="fade">
+            <details-modal v-if="showDetailsModal" @close="showDetailsModal = false"></details-modal>
+        </transition>
     </div>
 </template>
 
