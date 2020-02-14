@@ -38,6 +38,7 @@
                             <div class="rating">
                                 <span class="icon-full-star star" v-for="(n, index) in Math.floor(item.rating)" v-bind:key="index"></span>
                                 <span class="icon-half-star star" v-if="item.rating % 1 !== 0"></span>
+                                <span class="icon-empt-star star" v-for="(n, index) in Math.floor(5 - item.rating)" v-bind:key="index"></span>
                             </div>
                             <div class="end-bar">
                                 <div class="food-and-price">
