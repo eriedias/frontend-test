@@ -28,6 +28,7 @@ export default {
             })
             this.options[index].status = !this.options[index].status
             this.$emit('changeName', this.options[index])
+            this.show = false
         }
     },
     created: function() {

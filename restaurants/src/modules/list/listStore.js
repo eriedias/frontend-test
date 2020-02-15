@@ -26,7 +26,7 @@ export default {
                 {
                     params: {
                         location: 'Las Vegas',
-                        radius: 40000,
+                        //radius: 40000,
                         price: filter.price.value,
                         categories: filter.category.value,
                         open_now: filter.onlyOpenNow
