@@ -22,7 +22,12 @@ export default {
             onlyOpenNow: false,
             price: {value: '1, 2, 3, 4', title: 'Prices'},
             category: {value: '', title: 'Categories'}
-        }
+        },
+        defaultFilter: {
+            onlyOpenNow: false,
+            price: {value: '1, 2, 3, 4', title: 'Prices'},
+            category: {value: '', title: 'Categories'}
+        },
     },
     mutations: {
         CHANGE_FILTER_ONLY_OPEN_NOW(state, payload) {
@@ -34,6 +39,12 @@ export default {
         CHANGE_FILTER_CATEGORY(state, payload) {
             state.filter.category = payload
         },
+
+        CLEAR_FILTER(state) {
+            state.filter.onlyOpenNow = state.defaultFilter.onlyOpenNow
+            state.filter.price = state.defaultFilter.price
+            state.filter.category = state.defaultFilter.category
+        },
     },
     actions: {
         updateFilterOnlyOpenNowState({ commit }, value){
@@ -44,6 +55,10 @@ export default {
         },
         updateFilterCategoryState({ commit }, category){
             commit('CHANGE_FILTER_CATEGORY', category)
+        },
+
+        clearFilter({ commit }){
+            commit('CLEAR_FILTER')
         },
     },
 }

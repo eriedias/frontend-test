@@ -83,11 +83,6 @@ export default {
         return {
             filterStore: this.$store.state.filterStore,
             modalOpen: false,
-            defaultSelecteds: {
-                price: 'Prices',
-                category: 'Categories',
-                open: false
-            },
             defaultSelectedString: 'All',
             selectedString: 'All',
         }
@@ -131,10 +126,10 @@ export default {
         setSelectedString(){
             let arraySelecteds = []
 
-            if (this.filterStore.filter.price.title !== this.defaultSelecteds.price && this.filterStore.filter.price.title !== 'All'){
+            if (this.filterStore.filter.price.title !== this.filterStore.defaultFilter.price.title && this.filterStore.filter.price.title !== 'All'){
                 arraySelecteds.push(this.filterStore.filter.price.title)
             }
-            if (this.filterStore.filter.category.title !== this.defaultSelecteds.category && this.filterStore.filter.category.title !== 'All'){
+            if (this.filterStore.filter.category.title !== this.filterStore.defaultFilter.category.title && this.filterStore.filter.category.title !== 'All'){
                 arraySelecteds.push(this.filterStore.filter.category.title)
             }
             if (this.filterStore.filter.onlyOpenNow === true){
@@ -149,9 +144,9 @@ export default {
         },
         // Needs to be refactored
         equalSelectedObjects(){
-            if ((this.filterStore.filter.price.title === this.defaultSelecteds.price ||
+            if ((this.filterStore.filter.price.title === this.filterStore.defaultFilter.price.title ||
                 this.filterStore.filter.price.title === 'All') &&
-                (this.filterStore.filter.category.title === this.defaultSelecteds.category ||
+                (this.filterStore.filter.category.title === this.filterStore.defaultFilter.category.title ||
                 this.filterStore.filter.category.title === 'All') &&
                 this.filterStore.filter.onlyOpenNow === false){
                 this.selectedString = this.defaultSelectedString

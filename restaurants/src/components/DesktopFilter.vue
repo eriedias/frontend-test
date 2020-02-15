@@ -13,7 +13,7 @@
         </div>
         <dropdown-select :name="this.filterStore.filter.price.title" :options="this.filterStore.prices" class="dropdown-select" @changeName="selectPrice($event)"></dropdown-select>
         <dropdown-select :name="this.filterStore.filter.category.title" :options="this.filterStore.categories" class="dropdown-select" @changeName="selectCategory($event)"></dropdown-select>
-        <button class="outline-button x-small-button disabled clear-button">Clear all</button>
+        <button class="outline-button x-small-button clear-button" :class="[JSON.stringify(this.filterStore.filter) === JSON.stringify(this.filterStore.defaultFilter) ? 'disabled' : '']" @click="resetFilter()">Clear all</button>
 
     </div>
 </template>
@@ -34,7 +34,7 @@ export default {
         
     },
     methods: {
-        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState']),
+        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState', 'clearFilter']),
         ...mapActions('listStore', ['to_list']),
 
         changeOnlyOpenNow(value){
@@ -48,6 +48,18 @@ export default {
         selectCategory(category){
             this.updateFilterCategoryState(category)
             this.to_list(this.filterStore.filter)
+        },
+        resetFilter(){
+            this.clearFilter()
+            this.to_list(this.filterStore.filter)
+            this.filterStore.prices.forEach((option) => {
+                option.status = false
+            })
+            this.filterStore.categories.forEach((option) => {
+                option.status = false
+            })
+            this.filterStore.prices[0].status = true
+            this.filterStore.categories[0].status = true
         },
     },
 }
