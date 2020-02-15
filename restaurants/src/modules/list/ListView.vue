@@ -55,7 +55,8 @@
                                 </div>
                                 <div class="status">
                                     <!-- The Yelp API listing endpoint does not provide a parameter for open restaurants. -->
-                                    <!-- Using "is_closed" below, but I think this parameter is for restaurants that have finished their work. -->
+                                    <!-- Using "is_closed" below, but this parameter is for restaurants that has been permanently closed. -->
+                                    <!-- I'll resolve this using GraphiQL. -->
                                     <span class="icon-circle icon open" :class="[item.is_closed ? 'close' : 'open']"></span>
                                     <span class="text" v-if="item.is_closed">Close</span>
                                     <span class="text" v-else>Open Now</span>
@@ -77,7 +78,7 @@
         </transition>
 
         <div class="vld-parent">
-            <loading :active.sync="this.$store.state.isLoading" :color="'#004891'" :background-color="'#000'" :width="100" :height="100"></loading>
+            <loading :active.sync="this.$store.state.isLoading" :color="'#FFF'" :background-color="'#002b56'" :opacity="0.7" :width="100" :height="100"></loading>
         </div>
 
     </div>
