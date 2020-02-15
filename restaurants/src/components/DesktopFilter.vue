@@ -50,16 +50,18 @@ export default {
             this.to_list(this.filterStore.filter)
         },
         resetFilter(){
-            this.clearFilter()
-            this.to_list(this.filterStore.filter)
-            this.filterStore.prices.forEach((option) => {
-                option.status = false
-            })
-            this.filterStore.categories.forEach((option) => {
-                option.status = false
-            })
-            this.filterStore.prices[0].status = true
-            this.filterStore.categories[0].status = true
+            if (JSON.stringify(this.filterStore.filter) !== JSON.stringify(this.filterStore.defaultFilter)) {
+                this.clearFilter()
+                this.to_list(this.filterStore.filter)
+                this.filterStore.prices.forEach((option) => {
+                    option.status = false
+                })
+                this.filterStore.categories.forEach((option) => {
+                    option.status = false
+                })
+                this.filterStore.prices[0].status = true
+                this.filterStore.categories[0].status = true
+            }
         },
     },
 }
