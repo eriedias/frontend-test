@@ -68,3 +68,6 @@
 .icon-empt-star:before {
   content: "\6a";
 }
+.icon-pin:before {
+  content: "\6b";
+}

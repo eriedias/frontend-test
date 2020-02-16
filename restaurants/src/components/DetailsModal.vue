@@ -28,6 +28,27 @@
                 </header>
 
                 <section class="map-and-photos">
+                    <div class="flex">
+                        <div class="item map">
+                            <GmapMap
+                                :center="businessCoordinates"
+                                :zoom="15" map-type-id="terrain" style="width: 100%; height: 100%"
+                                >
+                                <GmapCustomMarker :marker="businessCoordinates" class="gmap-custom-marker">
+                                    <div class="map-marker">
+                                        <figure><img :src="listStore.businessInModal.photos[0]"></figure>
+                                        <span class="icon icon-pin"></span>
+                                    </div>
+                                </GmapCustomMarker>
+                            </GmapMap>
+                        </div>
+                        <figure class="item photo">
+                            <img :src="listStore.businessInModal.photos[0]">
+                        </figure>
+                        <figure class="item photo">
+                            <img :src="listStore.businessInModal.photos[1]">
+                        </figure>
+                    </div>
                     <p class="address"><span v-for="item in listStore.businessInModal.location.display_address" v-bind:key="item">{{ item }}</span></p>
                 </section>
 
@@ -57,7 +78,7 @@
                 </section>
 
                 <div class="buttons">
-                    <button @click="close()">Close</button>
+                    <button @click="closemodal()">Close</button>
                 </div>
             </div>
         </div>
@@ -66,30 +87,41 @@
 </template>
 
 <script>
+import GmapCustomMarker from 'vue2-gmap-custom-marker';
+
 export default {
+    components: {
+        GmapCustomMarker
+    },
     props: {
         modalopen: Boolean
     },
     data() {
         return {
             listStore: this.$store.state.listStore,
+            businessCoordinates: {
+                lat:this.$store.state.listStore.businessInModal.coordinates.latitude, 
+                lng:this.$store.state.listStore.businessInModal.coordinates.longitude
+            }
         }
     },
     methods: {
-        close(){
-            this.$emit('close')
+        closemodal(){
+            this.$emit('closemodal')
         }
     },
     mounted: function() {
+        /*
         window.addEventListener('click', (e) => {
             // TypeError: _this.$refs.modal is undefined
             if (this.$store.state.detailsModalOpen && !this.$refs.modal.contains(e.target)){
-                this.$emit('close')
+                this.$emit('closemodal')
             }
         }),
+        */
         window.addEventListener('keydown', (e) => {
             if (this.$store.state.detailsModalOpen && e.key == 'Backspace') {
-                this.$emit('close')
+                this.$emit('closemodal')
             }
         });
     },

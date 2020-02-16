@@ -74,7 +74,7 @@
         </section>
 
         <transition name="fade">
-            <details-modal v-if="this.$store.state.detailsModalOpen" @close="$store.state.detailsModalOpen = false"></details-modal>
+            <details-modal v-if="this.$store.state.detailsModalOpen" @closemodal="$store.state.detailsModalOpen = false"></details-modal>
         </transition>
 
         <div class="vld-parent">
