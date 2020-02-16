@@ -10,7 +10,7 @@ export const axiosRequest = axios.create({
     maxContentLength: 5242880,
     withCredentials: false,
     headers: {
-        Authorization: 'Bearer ' + process.env.VUE_APP_API_KEY,
+        Authorization: 'Bearer ' + process.env.VUE_APP_YELP_API_KEY,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
     }
