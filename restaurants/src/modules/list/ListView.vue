@@ -4,7 +4,7 @@
         <!-- Main Header -->
         <header id="main-header">
             <div class="container">
-                <h1>Restaurants <span style="font-size:15px; color: red">{{ windowSize.width }}x{{ windowSize.height }}</span></h1>
+                <h1>Restaurants</h1>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tristique lorem sed mauris laoreet hendrerit.</p>
             </div>
         </header>
@@ -57,7 +57,7 @@
                                     <!-- The Yelp API listing endpoint does not provide a parameter for open restaurants. -->
                                     <!-- Using "is_closed" below, but this parameter is for restaurants that has been permanently closed. -->
                                     <!-- I'll resolve this using GraphiQL. -->
-                                    <span class="icon-circle icon open" :class="[item.is_closed ? 'close' : 'open']"></span>
+                                    <span class="icon-circle icon" :class="[item.is_closed ? 'close' : 'open']"></span>
                                     <span class="text" v-if="item.is_closed">Close</span>
                                     <span class="text" v-else>Open Now</span>
                                 </div>
@@ -74,7 +74,7 @@
         </section>
 
         <transition name="fade">
-            <details-modal v-if="showDetailsModal" @close="showDetailsModal = false"></details-modal>
+            <details-modal v-if="this.$store.state.detailsModalOpen" @close="$store.state.detailsModalOpen = false"></details-modal>
         </transition>
 
         <div class="vld-parent">

@@ -19,11 +19,6 @@ export default {
     mounted() {
         this.to_list(this.$store.state.filterStore.filter)
     },
-    data() {
-        return {
-            showDetailsModal: false,
-        }
-    },
     methods: {
         ...mapActions('listStore', ['to_list', 'to_detail']),
 
@@ -31,7 +26,7 @@ export default {
             return new Promise (() => { 
                 this.to_detail(id)
                 .then(() => {
-                    this.showDetailsModal = !this.showDetailsModal
+                    this.$store.state.detailsModalOpen = true
                 })
                 .catch((error) => {
                 // eslint-disable-next-line no-console

@@ -5,6 +5,7 @@ export default {
     state: {
         list: [],
         businessInModal: {},
+        reviewsInModal: [],
         loadedWithoutResults: false
     },
     mutations: {
@@ -16,6 +17,9 @@ export default {
         },
         CHANGE_BUSINESS_MODAL(state, payload) {
             state.businessInModal = payload
+        },
+        CHANGE_REVIEWS_MODAL(state, payload) {
+            state.reviewsInModal = payload.reviews
         },
     },
     actions: {
@@ -56,13 +60,33 @@ export default {
             return new Promise ((resolve, reject) => {
                 dispatch('updateIsLoading', true, { root: true })
                 axiosRequest.get('businesses/'+id,
-                {
-                    params: {
-                    }
-                }
                 ).then(response => {
                     if (response.data) {
+                        dispatch('to_reviews', response.data.id)
                         commit('CHANGE_BUSINESS_MODAL', response.data)
+                        resolve(
+                            dispatch('updateIsLoading', false, { root: true })
+                        )
+                    } else {
+                        reject(
+                            dispatch('updateIsLoading', false, { root: true })
+                        )
+                    }
+                })
+                .catch((error) => {
+                    // eslint-disable-next-line no-console
+                    console.log(JSON.stringify(error))
+                })
+            })
+        },
+
+        to_reviews({ dispatch, commit }, id) {
+            return new Promise ((resolve, reject) => {
+                dispatch('updateIsLoading', true, { root: true })
+                axiosRequest.get('businesses/'+id+'/reviews'
+                ).then(response => {
+                    if (response.data) {
+                        commit('CHANGE_REVIEWS_MODAL', response.data)
                         resolve(
                             dispatch('updateIsLoading', false, { root: true })
                         )
