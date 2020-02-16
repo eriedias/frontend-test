@@ -86,7 +86,12 @@ export default {
             if (this.$store.state.detailsModalOpen && !this.$refs.modal.contains(e.target)){
                 this.$emit('close')
             }
-        })
+        }),
+        window.addEventListener('keydown', (e) => {
+            if (this.$store.state.detailsModalOpen && e.key == 'Backspace') {
+                this.$emit('close')
+            }
+        });
     },
 }
 </script>
