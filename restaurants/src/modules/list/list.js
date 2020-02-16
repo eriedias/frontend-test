@@ -17,10 +17,11 @@ export default {
     },
     mixins: [windowSize],
     mounted() {
+        this.to_clean_list()
         this.to_list(this.$store.state.filterStore.filter)
     },
     methods: {
-        ...mapActions('listStore', ['to_list', 'to_detail']),
+        ...mapActions('listStore', ['to_list', 'to_detail', 'to_clean_list']),
 
         showDetails(id){
             return new Promise (() => { 
@@ -33,6 +34,10 @@ export default {
                 console.log(JSON.stringify(error))
                 })
             })
+        },
+
+        loadMore(){
+            this.to_list(this.$store.state.filterStore.filter)
         }
     },
     computed: {

@@ -6,11 +6,19 @@ export default {
         list: [],
         businessInModal: {},
         reviewsInModal: [],
-        loadedWithoutResults: false
+        loadedWithoutResults: false,
     },
     mutations: {
         CHANGE_LIST(state, payload) {
-            state.list = payload.businesses
+            if (state.list.length > 0){
+                state.list = state.list.concat(payload.businesses)
+            }
+            else {
+                state.list = payload.businesses
+            }
+        },
+        CLEAN_LIST(state){
+            state.list = []
         },
         LOADED_WITHOUT_RESULTS(state, payload) {
             state.loadedWithoutResults = payload
@@ -30,10 +38,10 @@ export default {
                 {
                     params: {
                         location: 'Las Vegas',
-                        //radius: 40000,
                         price: filter.price.value,
                         categories: filter.category.value,
-                        open_now: filter.onlyOpenNow
+                        open_now: filter.onlyOpenNow,
+                        offset: state.list.length
                     }
                 }
                 ).then(response => {
@@ -54,6 +62,10 @@ export default {
                     console.log(JSON.stringify(error))
                 })
             })
+        },
+
+        to_clean_list({ commit }){
+            commit('CLEAN_LIST')
         },
 
         to_detail({ dispatch, commit }, id) {

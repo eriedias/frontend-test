@@ -89,7 +89,7 @@ export default {
     },
     methods: {
         ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState']),
-        ...mapActions('listStore', ['to_list']),
+        ...mapActions('listStore', ['to_list', 'to_clean_list']),
         toggleModal() {
             this.modalOpen = !this.modalOpen
             this.modalOpen ? document.body.classList.add('modal-open') : document.body.classList.remove('modal-open')
@@ -103,6 +103,7 @@ export default {
 
         changeOnlyOpenNow(value){
             this.updateFilterOnlyOpenNowState(value)
+            this.to_clean_list()
             this.to_list(this.filterStore.filter)
 
             this.changeSelectedString()
@@ -110,6 +111,7 @@ export default {
 
         updatePrice(price){
             this.updateFilterPriceState(price)
+            this.to_clean_list()
             this.to_list(this.filterStore.filter)
 
             this.changeSelectedString()
@@ -117,6 +119,7 @@ export default {
 
         updateCategory(category){
             this.updateFilterCategoryState(category)
+            this.to_clean_list()
             this.to_list(this.filterStore.filter)
 
             this.changeSelectedString()

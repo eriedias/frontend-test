@@ -29,7 +29,7 @@
                 <h2 class="list-title">All Restaurants</h2>
                 <ul class="list">
 
-                    <li class="item" v-for="item in list" v-bind:key="item.id">
+                    <li class="item" v-for="(item, index) in list" v-bind:key="index">
                         <figure>
                             <img :src="item.image_url">
                         </figure>
@@ -69,6 +69,10 @@
                     </li>
 
                 </ul>
+
+                <div class="load-more">
+                    <button class="outline-button" @click="loadMore()">Load more</button>
+                </div>
             </div>
 
         </section>

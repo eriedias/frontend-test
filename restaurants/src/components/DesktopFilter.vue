@@ -35,23 +35,27 @@ export default {
     },
     methods: {
         ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState', 'clearFilter']),
-        ...mapActions('listStore', ['to_list']),
+        ...mapActions('listStore', ['to_list', 'to_clean_list']),
 
         changeOnlyOpenNow(value){
             this.updateFilterOnlyOpenNowState(value)
+            this.to_clean_list()
             this.to_list(this.filterStore.filter)
         },
         selectPrice(price){
             this.updateFilterPriceState(price)
+            this.to_clean_list()
             this.to_list(this.filterStore.filter)
         },
         selectCategory(category){
             this.updateFilterCategoryState(category)
+            this.to_clean_list()
             this.to_list(this.filterStore.filter)
         },
         resetFilter(){
             if (JSON.stringify(this.filterStore.filter) !== JSON.stringify(this.filterStore.defaultFilter)) {
                 this.clearFilter()
+                this.to_clean_list()
                 this.to_list(this.filterStore.filter)
                 this.filterStore.prices.forEach((option) => {
                     option.status = false

@@ -78,7 +78,7 @@
                 </section>
 
                 <div class="buttons">
-                    <button @click="closemodal()">Close</button>
+                    <button class="outline-button" @click="closemodal()">Close</button>
                 </div>
             </div>
         </div>
