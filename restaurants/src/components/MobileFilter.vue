@@ -108,6 +108,7 @@ export default {
             this.to_list(this.filterStore.filter)
             this.applyActive = false
             this.changeSelectedString()
+            this.toggleModal()
         },
 
         changeOnlyOpenNow(value){
@@ -147,6 +148,7 @@ export default {
 
                 this.changeSelectedString()
                 this.applyActive = false
+                this.toggleModal()
             }
         },
 
