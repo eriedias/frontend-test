@@ -105,6 +105,7 @@ export default {
         },
 
         applyFilter(){
+            this.to_clean_list()
             this.to_list(this.filterStore.filter)
             this.applyActive = false
             this.changeSelectedString()
@@ -113,21 +114,18 @@ export default {
 
         changeOnlyOpenNow(value){
             this.updateFilterOnlyOpenNowState(value)
-            this.to_clean_list()
             //this.to_list(this.filterStore.filter)
             this.applyActive = true
         },
 
         updatePrice(price){
             this.updateFilterPriceState(price)
-            this.to_clean_list()
             //this.to_list(this.filterStore.filter)
             this.applyActive = true
         },
 
         updateCategory(category){
             this.updateFilterCategoryState(category)
-            this.to_clean_list()
             //this.to_list(this.filterStore.filter)
             this.applyActive = true
         },
