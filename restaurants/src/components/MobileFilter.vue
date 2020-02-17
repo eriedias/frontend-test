@@ -25,10 +25,12 @@
                 <div class="container">
                     <div class="list">
                         <div class="item">
-                            <button class="outline-button small-button disabled">Clear all</button>
+                            <button class="outline-button small-button" 
+                                    :class="[JSON.stringify(this.filterStore.filter) === JSON.stringify(this.filterStore.defaultFilter) ? 'disabled' : '']"
+                                     @click="resetFilter()">Clear all</button>
                         </div>
                         <div class="item">
-                            <button class="small-button disabled">Apply</button>
+                            <button class="small-button" :class="[applyActive ? '' : 'disabled']" @click="applyFilter()">Apply</button>
                         </div>
                     </div>
                 </div>
@@ -85,10 +87,11 @@ export default {
             modalOpen: false,
             defaultSelectedString: 'All',
             selectedString: 'All',
+            applyActive: false
         }
     },
     methods: {
-        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState']),
+        ...mapActions('filterStore', ['updateFilterPriceState', 'updateFilterCategoryState', 'updateFilterOnlyOpenNowState', 'clearFilter']),
         ...mapActions('listStore', ['to_list', 'to_clean_list']),
         toggleModal() {
             this.modalOpen = !this.modalOpen
@@ -101,28 +104,50 @@ export default {
             }
         },
 
+        applyFilter(){
+            this.to_list(this.filterStore.filter)
+            this.applyActive = false
+            this.changeSelectedString()
+        },
+
         changeOnlyOpenNow(value){
             this.updateFilterOnlyOpenNowState(value)
             this.to_clean_list()
-            this.to_list(this.filterStore.filter)
-
-            this.changeSelectedString()
+            //this.to_list(this.filterStore.filter)
+            this.applyActive = true
         },
 
         updatePrice(price){
             this.updateFilterPriceState(price)
             this.to_clean_list()
-            this.to_list(this.filterStore.filter)
-
-            this.changeSelectedString()
+            //this.to_list(this.filterStore.filter)
+            this.applyActive = true
         },
 
         updateCategory(category){
             this.updateFilterCategoryState(category)
             this.to_clean_list()
-            this.to_list(this.filterStore.filter)
+            //this.to_list(this.filterStore.filter)
+            this.applyActive = true
+        },
 
-            this.changeSelectedString()
+        resetFilter(){
+            if (JSON.stringify(this.filterStore.filter) !== JSON.stringify(this.filterStore.defaultFilter)) {
+                this.clearFilter()
+                this.to_clean_list()
+                this.to_list(this.filterStore.filter)
+                this.filterStore.prices.forEach((option) => {
+                    option.status = false
+                })
+                this.filterStore.categories.forEach((option) => {
+                    option.status = false
+                })
+                this.filterStore.prices[0].status = true
+                this.filterStore.categories[0].status = true
+
+                this.changeSelectedString()
+                this.applyActive = false
+            }
         },
 
         // Needs to be refactored

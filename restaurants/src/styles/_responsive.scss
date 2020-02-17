@@ -33,12 +33,23 @@
                 width: 100%;
             }
         }
+        .load-more {
+            button {
+                width: 100%;
+            }
+        }
     }
     .details-modal {
         .container {
             .modal {
                 .modal-photo {
                     height: 30vh;
+                }
+                .buttons {
+                    padding: 0 30px 50px;
+                    button {
+                        width: 100%;
+                    }
                 }
             }
         }
