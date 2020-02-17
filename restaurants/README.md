@@ -1,4 +1,4 @@
-# restaurants
+# Restaurants
 
 ## Project setup
 ```
@@ -6,7 +6,7 @@ npm install
 ```
 
 ### Enviroment Settings
-Create a .env.local file on the app root and set yours Yelp API authentication variables VUE_APP_YELP_API_KEY and VUE_APP_GMAP_API_KEY.
+Create a .env.local file on the app root and set yours API keys variables VUE_APP_YELP_API_KEY and VUE_APP_GMAP_API_KEY.
 Example:
 ```
 VUE_APP_YELP_API_KEY=abc123
