@@ -134,26 +134,52 @@ export default {
             }
         });
 
-        // Mobile photo slide
-        var x,y,top,left,down
-        window.addEventListener('mousedown', (e) => {
+        // Mobile photo slide        
+        var x,y,newX,newY,top,left,down,eventTypeDown,eventTypeMove,eventTypeUp
+        var isMobile = false
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            isMobile = true
+        }
+        if(isMobile) {
+            eventTypeDown = 'touchstart'
+            eventTypeMove = 'touchmove'
+            eventTypeUp = 'touchend'
+        } else {
+            //If its not a mobile device use mouse
+            eventTypeDown = 'mousedown'
+            eventTypeMove = 'mousemove'
+            eventTypeUp = 'mouseup'
+        }
+        window.addEventListener(eventTypeDown, (e) => {
             if (this.$refs.photoslide && this.$refs.photoslide.contains(e.target)){
+                //alert(e.changedTouches[0].pageX)
                 down = true;
-                x = e.pageX;
-                y = e.pageY;
+                if(isMobile) {
+                    x = e.changedTouches[0].pageX
+                    y = e.changedTouches[0].pageY
+                } else {
+                    x = e.pageX;
+                    y = e.pageY;
+                }
                 top = this.$refs.photoslide.scrollTop;
                 left = this.$refs.photoslide.scrollLeft;
             }
         })
-        window.addEventListener('mousemove', (e) => {
+        window.addEventListener(eventTypeMove, (e) => {
             if(down && this.$refs.photoslide){
-                var newX = e.pageX;
-                var newY = e.pageY;
+                if(isMobile) {
+                    newX = e.changedTouches[0].pageX;
+                    newY = e.changedTouches[0].pageY;
+                } else {
+                    newX = e.pageX;
+                    newY = e.pageY;
+                }
                 this.$refs.photoslide.scrollTop = top - newY + y;    
                 this.$refs.photoslide.scrollLeft = left - newX + x;
             }
         })
-        window.addEventListener('mouseup', () => {
+
+        window.addEventListener(eventTypeUp, () => {
             down = false
         })
         
