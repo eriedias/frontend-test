@@ -32,7 +32,7 @@
                         <div class="item map">
                             <GmapMap
                                 :center="businessCoordinates"
-                                :zoom="15" map-type-id="terrain" style="width: 100%; height: 100%"
+                                :zoom="15" map-type-id="terrain" style="width: 100%; height: 230px"
                                 >
                                 <GmapCustomMarker :marker="businessCoordinates" class="gmap-custom-marker">
                                     <div class="map-marker">
@@ -41,26 +41,33 @@
                                     </div>
                                 </GmapCustomMarker>
                             </GmapMap>
+                            <p class="address"><span v-for="item in listStore.businessInModal.location.display_address" v-bind:key="item">{{ item }}</span></p>
                         </div>
-                        <figure class="item photo">
-                            <img :src="listStore.businessInModal.photos[0]">
-                        </figure>
-                        <figure class="item photo">
-                            <img :src="listStore.businessInModal.photos[1]">
-                        </figure>
+                        <div class="item photo-list" :ref="windowSize.width <= 767 ? 'photoslide' : ''">
+                            <figure class="photo">
+                                <img :src="listStore.businessInModal.photos[0]">
+                            </figure>
+                            <figure class="photo">
+                                <img :src="listStore.businessInModal.photos[1]">
+                            </figure>
+                            <figure class="photo" v-if="windowSize.width <= 767">
+                                <img :src="listStore.businessInModal.photos[2]">
+                            </figure>
+                        </div>
                     </div>
-                    <p class="address"><span v-for="item in listStore.businessInModal.location.display_address" v-bind:key="item">{{ item }}</span></p>
                 </section>
 
                 <section class="reviews">
                     <p class="total">{{ listStore.businessInModal.review_count }} Reviews</p>
                     <div class="item" v-for="review in listStore.reviewsInModal" v-bind:key="review.id">
-                        <figure>
-                            <img :src="review.user.image_url">
-                        </figure>
-                        <div class="name-and-date">
-                            <span class="name">{{ review.user.name }}</span>
-                            <span class="date">{{ review.time_created.substring(0,10) }}</span>
+                        <div class="user">
+                            <figure>
+                                <img :src="review.user.image_url">
+                            </figure>
+                            <div class="name-and-date">
+                                <span class="name">{{ review.user.name }}</span>
+                                <span class="date">{{ review.time_created.substring(0,10) }}</span>
+                            </div>
                         </div>
                         <div class="text-and-rating">
                             <div class="review-rating">
@@ -88,11 +95,13 @@
 
 <script>
 import GmapCustomMarker from 'vue2-gmap-custom-marker';
+import windowSize from '../mixins/windowSize'
 
 export default {
     components: {
         GmapCustomMarker
     },
+    mixins: [windowSize],
     props: {
         modalopen: Boolean
     },
@@ -124,6 +133,30 @@ export default {
                 this.$emit('closemodal')
             }
         });
+
+        // Mobile photo slide
+        var x,y,top,left,down
+        window.addEventListener('mousedown', (e) => {
+            if (this.$refs.photoslide && this.$refs.photoslide.contains(e.target)){
+                down = true;
+                x = e.pageX;
+                y = e.pageY;
+                top = this.$refs.photoslide.scrollTop;
+                left = this.$refs.photoslide.scrollLeft;
+            }
+        })
+        window.addEventListener('mousemove', (e) => {
+            if(down && this.$refs.photoslide){
+                var newX = e.pageX;
+                var newY = e.pageY;
+                this.$refs.photoslide.scrollTop = top - newY + y;    
+                this.$refs.photoslide.scrollLeft = left - newX + x;
+            }
+        })
+        window.addEventListener('mouseup', () => {
+            down = false
+        })
+        
     },
 }
 </script>

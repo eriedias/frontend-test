@@ -366,31 +366,39 @@ header#main-header {
                     margin-left: -15px;
                     margin-right: -15px;
                     justify-content: space-between;
-                    margin-bottom: 25px;
                     .item {
                         margin-left: 15px;
                         margin-right: 15px;
-                        background: #EEE;
-                        height: 230px;
+                        width: 50%;
                     }
                     .item.map {
-                        width: 50%;
                         position: relative;
-                    }
-                    .item.photo {
-                        overflow: hidden;
-                        width: 25%;
-                        img {
-                            height: 100%;
-                            width: 100%;
-                            transition: .4s;
-                            object-fit: cover;
+                        p.address {
+                            margin-top: 30px;
+                            margin-bottom: 0;
+                            font-size: 20px;
+                            color: #000;
                         }
                     }
-                }
-                .address {
-                    font-size: 20px;
-                    color: #000;
+                    .item.photo-list {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-left: 0;
+                        margin-right: 0;
+                        .photo {
+                        margin-left: 15px;
+                        margin-right: 15px;
+                        overflow: hidden;
+                        width: 50%;
+                        height: 230px;
+                            img {
+                                height: 100%;
+                                width: 100%;
+                                transition: .4s;
+                                object-fit: cover;
+                            }
+                        }
+                    }
                 }
             }
             .reviews {
@@ -404,32 +412,36 @@ header#main-header {
                     padding-bottom: 80px;
                     margin-bottom: 80px;
                     display: flex;
-                    figure {
-                        width: 80px;
-                        height: 80px;
-                        min-width: 80px;
-                        background: #EEE;
-                        margin-right: 35px;
-                        overflow: hidden;
-                        img {
-                            height: 100%;
-                            width: 100%;
-                            object-fit: cover;
+                    .user {
+                        min-width: 270px;
+                        display: flex;
+                        figure {
+                            width: 80px;
+                            height: 80px;
+                            min-width: 80px;
+                            background: #EEE;
+                            margin-right: 35px;
+                            overflow: hidden;
+                            img {
+                                height: 100%;
+                                width: 100%;
+                                object-fit: cover;
+                            }
                         }
-                    }
-                    .name-and-date {
-                        width: 188px;
-                        min-width: 188px;
-                        margin-right: 35px;
-                        .name {
-                            font-size: 22px;
-                            color: #000;
-                            display: block;
-                            margin-bottom: 5px;
-                        }
-                        .date {
-                            display: block;
-                            font-size: 16px;
+                        .name-and-date {
+                            width: 188px;
+                            min-width: 188px;
+                            margin-right: 35px;
+                            .name {
+                                font-size: 22px;
+                                color: #000;
+                                display: block;
+                                margin-bottom: 5px;
+                            }
+                            .date {
+                                display: block;
+                                font-size: 16px;
+                            }
                         }
                     }
                     .text-and-rating {

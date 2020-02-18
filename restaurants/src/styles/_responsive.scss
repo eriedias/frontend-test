@@ -30,12 +30,15 @@
             line-height: 20px;
         }
     }
+
     .main-filter {
         border-bottom: none;
     }
+
     .list-title {
         margin: 20px 0 30px !important;
     }
+
     .restaurants-list {
         .list {
             .item {
@@ -125,9 +128,100 @@
     .details-modal {
         .container {
             .modal {
-                .modal-photo {
-                    height: 30vh;
+                .modal-header {
+                    .title {
+                        font-size: 33px;
+                    }
+                    .rating {
+                        .star {
+                            font-size: 20px;
+                        }
+                    }
+                    .end-bar {
+                        font-size: 12px;
+                        .status {
+                            text-transform: uppercase;
+                            .icon {
+                                font-size: 12px;
+                            }
+                            .icon.open {
+                                color: $green;
+                            }
+                            .icon.close {
+                                color: $red;
+                            }
+                        }
+                    }
                 }
+                .map-and-photos {
+                    border-top: none;
+                    padding: 0 0 40px;
+                    .flex {
+                        display: block;
+                        margin-left: 0;
+                        margin-right: 0;
+                        .item {
+                            margin-left: 0;
+                            margin-right: 0;
+                        }
+                        .item.map {
+                            width: auto;
+                            margin-bottom: 40px;
+                            p.address {
+                                margin-top: 20px;
+                                font-size: 18px;
+                                padding: 0 30px;
+                            }
+                        }
+                        .item.photo-list {
+                            width: 100%;
+                            display: block;
+                            width:calc(100% - 30px);
+                            overflow:hidden;
+                            position:relative;
+                            cursor:pointer;
+                            white-space:nowrap;
+                            .photo {
+                                display: inline-block;
+                                width: 50vw;
+                                height: 190px;
+                            }
+                            .photo:first-child {
+                                margin-left: 30px;
+                            }
+                            .photo:last-child {
+                                margin-right: 0;
+                            }
+                        }
+                    }
+                }
+                .reviews {
+                    .total {
+                        font-size: 18px;
+                        margin-bottom: 30px;
+                    }
+                    .item {
+                        display: block;
+                        margin-bottom: 30px;
+                        padding-bottom: 30px;
+                        .user {
+                            margin-bottom: 20px;
+                            figure {
+                                margin-right: 20px;
+                            }
+                            .name-and-date {
+                                width: auto;
+                                min-width: auto;
+                            }
+                        }
+                        .text-and-rating {
+                            .text {
+                                font-size: 16px;
+                            }
+                        }
+                    }
+                }
+
                 .buttons {
                     padding: 0 30px 50px;
                     button {
