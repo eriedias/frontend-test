@@ -58,12 +58,15 @@
                                     <!-- Using "is_closed" below, but this parameter is for restaurants that has been permanently closed. -->
                                     <!-- I'll resolve this using GraphiQL. -->
                                     <span class="icon-circle icon" :class="[item.is_closed ? 'close' : 'open']"></span>
-                                    <span class="text" v-if="item.is_closed">Close</span>
-                                    <span class="text" v-else>Open Now</span>
+                                    <span class="text close" v-if="item.is_closed">Close</span>
+                                    <span class="text open" v-else>Open <span v-if="windowSize.width > 767">Now</span></span>
                                 </div>
                             </div>
+                            <div class="learn-more-link" v-if="windowSize.width <= 767">
+                                <span class="link" @click="showDetails(item.id)"><span class="text">Learn More</span><span class="icon icon-long-arrow-right"></span></span>
+                            </div>
                         </div>
-                        <button class="learn-more-button" @click="showDetails(item.id)">
+                        <button class="learn-more-button" v-if="windowSize.width > 767" @click="showDetails(item.id)">
                             Learn More
                         </button>
                     </li>

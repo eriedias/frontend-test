@@ -21,6 +21,15 @@
 
 /* sm */
 @media only screen and (max-width:767px)  {
+    header#main-header {
+        h1 {
+            font-size: 32px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 20px;
+        }
+    }
     .main-filter {
         border-bottom: none;
     }
@@ -31,6 +40,80 @@
         .list {
             .item {
                 width: 100%;
+                flex-direction: row;
+                margin-bottom: 30px;
+                figure {
+                    min-width: 40%;
+                    float: left;
+                    height: 150px;
+                    margin-right: 15px;
+                    margin-bottom: 0;
+                }
+                .description {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    .item-title {
+                        font-size: 20px;
+                        display: -webkit-box;
+                        max-height: 65px;
+                        -webkit-line-clamp: 2;
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    .rating {
+                        .star {
+                            font-size: 13px;
+                        }
+                    }
+                    .end-bar {
+                        overflow: hidden;
+                        display: flex;
+                        justify-content: space-between;
+                        width: 100%;
+                        .food-and-price {
+                            float: left;
+                        }
+                        .status {
+                            float: right;
+                            min-width: auto;
+                            .icon {
+                                display: none;
+                            }
+                            .text {
+                                font-size: 8px;
+                                padding: 2px 5px;
+                                border-radius: 100px;
+                                display: inline-block;
+                            }
+                            .text.open {
+                                color: $blue;
+                                background: $green;
+                            }
+                            .text.close {
+                                color: #FFF;
+                                background: $red;
+                            }
+                        }
+                    }
+                    .learn-more-link {
+                        margin-top: auto;
+                        .link {
+                            color: $blue;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            .text {
+                                border-bottom: 1px solid #E6E6E6;
+                            }
+                            .icon {
+                                margin-top: 6px;
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
             }
         }
         .load-more {
