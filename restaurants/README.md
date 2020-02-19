@@ -1,5 +1,8 @@
 # Restaurants
 
+## Demo
+https://frontend-test-demo.herokuapp.com/
+
 ## Project setup
 ```
 npm install
