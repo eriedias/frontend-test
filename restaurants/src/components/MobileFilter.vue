@@ -234,6 +234,7 @@ body.modal-open {
         }
     }
     .filter-modal {
+        animation: modalAnimation .4s;
         overflow: scroll;
         position: fixed;
         top: 0;
@@ -314,6 +315,17 @@ body.modal-open {
                 margin-bottom: 15px;
             }
         }
+    }
+}
+
+@keyframes modalAnimation {
+    0% { 
+        opacity: 0;
+        transform: translatey(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translatey(0); 
     }
 }
 

@@ -11,12 +11,19 @@ const router = new Router({
         { 
             path: "/",
             component: () => import('../modules/list/ListView.vue'),
+            meta: { title: 'Restaurants' }
         },
         { 
             path: "/:title/:id",
             component: () => import('../modules/details/DetailsView.vue'),
         }
     ]
+})
+
+// Set title to pages
+router.beforeEach((to, from, next) => {
+    document.title = to.meta.title
+    next()
 })
 
 export default router
